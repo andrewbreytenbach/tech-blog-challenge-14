@@ -10,7 +10,7 @@ if (process.env.JAWSDB_URL) {
   });
 } else {
   // For development and other environments
-  sequelize = new Sequelize('user_db', 'root', 'maverick', {
+  sequelize = new Sequelize('tech_blog_db', 'root', 'maverick', {
     host: 'localhost',
     dialect: 'mysql',
   });
