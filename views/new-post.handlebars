@@ -1,0 +1,25 @@
+<!-- views/new-post.handlebars -->
+
+{{!-- Define the layout to be used --}}
+{{#layout 'main'}}
+  {{!-- Set the page title --}}
+  {{#set 'title'}}New Post{{/set}}
+
+  {{!-- Render the new post form --}}
+  <form action="/api/posts" method="POST">
+    <div>
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+    </div>
+    <div>
+      <label for="content">Content:</label>
+      <textarea id="content" name="content" required></textarea>
+    </div>
+    <div>
+      <button type="submit">Create Post</button>
+    </div>
+  </form>
+
+  {{!-- Render the link to go back to the dashboard --}}
+  <p><a href="/dashboard">Back to Dashboard</a></p>
+{{/layout}}
