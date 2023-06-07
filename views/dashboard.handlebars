@@ -1,0 +1,30 @@
+<!-- views/dashboard.handlebars -->
+
+{{!-- Define the layout to be used --}}
+{{#layout 'main'}}
+  {{!-- Set the page title --}}
+  {{#set 'title'}}Dashboard{{/set}}
+
+  {{!-- Render the list of user's blog posts --}}
+  <h2>Your Blog Posts</h2>
+  {{#each posts}}
+    <div>
+      <h3>{{title}}</h3>
+      <p>{{content}}</p>
+      <p>Date: {{createdAt}}</p>
+      <p>
+        <a href="/post/edit/{{id}}">Edit</a>
+        <a href="/post/delete/{{id}}">Delete</a>
+      </p>
+    </div>
+    <hr>
+  {{else}}
+    <p>You have no blog posts yet.</p>
+  {{/each}}
+
+  {{!-- Render the link to create a new blog post --}}
+  <p><a href="/post/new">Create New Post</a></p>
+
+  {{!-- Render the link to go back to the home page --}}
+  <p><a href="/">Back to Home</a></p>
+{{/layout}}
