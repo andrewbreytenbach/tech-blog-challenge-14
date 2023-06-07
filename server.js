@@ -6,7 +6,7 @@ const routes = require('./controllers');
 
 // Create an instance of Express.js
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3010;
 
 // Set up session middleware
 app.use(
@@ -18,8 +18,11 @@ app.use(
 );
 
 // Set up Handlebars.js as the view engine
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
+const { engine } = require("express-handlebars");
+
+app.engine("handlebars", engine());
+app.set("view engine", "handlebars");
+app.set("views", "./views");
 
 // Middleware to parse JSON and URL-encoded data
 app.use(express.json());

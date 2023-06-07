@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../../db/models');
+const { User } = require('../../models');
 const bcrypt = require('bcrypt');
 
 // Route for creating a new user
