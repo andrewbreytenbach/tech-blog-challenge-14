@@ -1,0 +1,25 @@
+<!-- views/login.handlebars -->
+
+{{!-- Define the layout to be used --}}
+{{#layout 'main'}}
+  {{!-- Set the page title --}}
+  {{#set 'title'}}Log In{{/set}}
+
+  {{!-- Render the login form --}}
+  <form action="/api/login" method="POST">
+    <div>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <div>
+      <button type="submit">Log In</button>
+    </div>
+  </form>
+
+  {{!-- Render the signup link --}}
+  <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+{{/layout}}
