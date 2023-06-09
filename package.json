@@ -4,20 +4,29 @@
     "description": "",
     "main": "server.js",
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js",
+        "seed": "node seeds/seed.js",
+        "heroku-postbuild": "node seeds/seed.js"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
-      "bcrypt": "^5.1.0",
-      "connect-session-sequelize": "^7.1.6",
-      "dotenv": "^16.0.3",
-      "express": "^4.18.2",
-      "express-handlebars": "^7.0.7",
-      "express-session": "^1.17.3",
-      "mysql2": "^3.3.1",
-      "path": "^0.12.7",
-      "sequelize": "^6.31.1"
+        "bcrypt": "^5.1.0",
+        "connect-session-sequelize": "^7.1.6",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "express-handlebars": "^5.3.5",
+        "express-session": "^1.17.3",
+        "layout": "^2.2.0",
+        "mysql2": "^3.3.1",
+        "path": "^0.12.7",
+        "sequelize": "^6.31.1"
+    },
+    "devDependencies": {
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "prettier": "^2.3.2"
     }
-  }
+}

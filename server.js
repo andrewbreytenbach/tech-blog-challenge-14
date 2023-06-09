@@ -3,12 +3,24 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
+const handlebars = require('handlebars');
+
 
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Register the "layout" helper
+handlebars.registerHelper('layout', function (options) {
+  // Implement the logic to render the layout
+});
+
+// Register the "get" helper
+handlebars.registerHelper('get', function (context, options) {
+  return options.fn(context);
+});
 
 // Serve static files from the public directory
 app.use(express.static('public'));
@@ -57,25 +69,3 @@ sequelize.sync({ force: false }).then(() => {
     console.log(`Server listening on PORT ${PORT}`);
   });
 });
-
-
-
-// Import routes
-const homeRoutes = require('./routes/home');
-const signupRoutes = require('./routes/signup');
-const loginRoutes = require('./routes/login');
-const dashboardRoutes = require('./routes/dashboard');
-const newPostRoutes = require('./routes/new-post');
-const editPostRoutes = require('./routes/edit-post');
-const commentRoutes = require('./routes/comments');
-const logoutRoutes = require('./routes/logout');
-
-// Routes
-app.use('/', homeRoutes);
-app.use('/signup', signupRoutes);
-app.use('/login', loginRoutes);
-app.use('/dashboard', dashboardRoutes);
-app.use('/post/new', newPostRoutes);
-app.use('/post/edit', editPostRoutes);
-app.use('/api/comments', commentRoutes);
-app.use('/api/users/logout', logoutRoutes);
