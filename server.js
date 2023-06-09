@@ -2,7 +2,6 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const path = require('path');
-const routes = require('./controllers');
 
 // Create an instance of Express.js
 const app = express();
@@ -31,8 +30,25 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Import routes
+const homeRoutes = require('./routes/home');
+const signupRoutes = require('./routes/signup');
+const loginRoutes = require('./routes/login');
+const dashboardRoutes = require('./routes/dashboard');
+const newPostRoutes = require('./routes/new-post');
+const editPostRoutes = require('./routes/edit-post');
+const commentRoutes = require('./routes/comments');
+const logoutRoutes = require('./routes/logout');
+
 // Routes
-app.use(routes);
+app.use('/', homeRoutes);
+app.use('/signup', signupRoutes);
+app.use('/login', loginRoutes);
+app.use('/dashboard', dashboardRoutes);
+app.use('/post/new', newPostRoutes);
+app.use('/post/edit', editPostRoutes);
+app.use('/api/comments', commentRoutes);
+app.use('/api/users/logout', logoutRoutes);
 
 // Start the server
 app.listen(PORT, () => {
