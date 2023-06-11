@@ -28,7 +28,7 @@ The Tech Blog is built with the following technologies:
 ## Getting Started
 To get started with the Tech Blog, follow these steps:
 
-1. Clone the repository: git clone https://github.com/your-username/tech-blog.git
+1. Clone the repository: git clone https://github.com/andrewbreytenbach/tech-blog-challenge-14
 2. Change to the project directory: cd tech-blog
 3. Install the dependencies: npm install
 4. Set up the database: Update the .env file with your MySQL database credentials.
@@ -49,6 +49,7 @@ Once the server is running and you've accessed the application in your web brows
 If you have any questions or want to reach out regarding this project, you can contact me through the following channels:
 
 * GitHub: andrewbreytenbach
+* View the finished application here: https://tech-blog-challenge-14.herokuapp.com/ 
 
 ## Acknowledgments
 * Handlebars.js
