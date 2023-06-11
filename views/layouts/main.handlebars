@@ -7,46 +7,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{#get 'title'}}Tech Blog{{/get}}</title>
-  {{!-- <link rel="stylesheet" type="text/css" href="/css/style.css"> --}}
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
 <body>
-  <header>
-    <h1>Tech Blog</h1>
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-        {{#if loggedIn}}
-          <li><a href="/dashboard">Dashboard</a></li>
-          <li><a href="/logout">Log Out</a></li>
-        {{else}}
-          <li><a href="/signup">Sign Up</a></li>
-          <li><a href="/login">Log In</a></li>
-        {{/if}}
-      </ul>
-    </nav>
-  </header>
 
-  <main>
-    {{#getContent}}
-      {{> body}}
-    {{/getContent}}
-  </main>
+  {{#if logged_in}}
+    {{> navbar}}
+    {{{ user_id }}}
+    {{ userName }}
+    <div class="container">
+      {{{ body }}}
+    </div>
+  {{else}}
+    {{> login}}
+  {{/if}}
 
   <footer>
     <p>&copy; 2023 Tech Blog. All rights reserved.</p>
   </footer>
-  <script type="text/javascript" src="/js/comments.js"></script>
-   <script type="text/javascript" src="/js/create-post.js"></script>
-    <script type="text/javascript" src="/js/dashboard.js"></script>
-     <script type="text/javascript" src="/js/edit-post.js"></script>
-     <script type="text/javascript" src="/js/home.js"></script>
-   <script type="text/javascript" src="/js/login.js"></script>
-    <script type="text/javascript" src="/js/logout.js"></script>
-     <script type="text/javascript" src="/js/new-post.js"></script>
-     <script type="text/javascript" src="/js/script.js"></script>
-   <script type="text/javascript" src="/js/signup.js"></script>
-     <script type="text/javascript" src="/js/sign-up.js"></script>
+  <script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 
 </html>
