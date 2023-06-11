@@ -1,17 +1,17 @@
-<!-- views/layouts/main.handlebars -->
-
+<!-- This file is part of the View. It handles UI (layout and display)-->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{#get 'title'}}Tech Blog{{/get}}</title>
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+  <link rel="stylesheet" type="text/css" href="/css/jass.css">
+  <link rel="stylesheet" type="text/css" href="/css/SavePlay.css">
 </head>
 
 <body>
-
   {{#if logged_in}}
     {{> navbar}}
     {{{ user_id }}}
@@ -22,11 +22,8 @@
   {{else}}
     {{> login}}
   {{/if}}
-
-  <footer>
-    <p>&copy; 2023 Tech Blog. All rights reserved.</p>
-  </footer>
-  <script type="text/javascript" src="/js/javascript.js"></script>
+    
+    <script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 
 </html>
