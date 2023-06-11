@@ -1,0 +1,21 @@
+[
+    {
+      "title": "First Blog Post",
+      "content": "This is the content of the first blog post.",
+      "author": "John Doe",
+      "category": "Technology"
+    },
+    {
+      "title": "Second Blog Post",
+      "content": "This is the content of the second blog post.",
+      "author": "Jane Smith",
+      "category": "Travel"
+    },
+    {
+      "title": "Third Blog Post",
+      "content": "This is the content of the third blog post.",
+      "author": "John Doe",
+      "category": "Food"
+    }
+  ]
+  
