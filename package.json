@@ -11,23 +11,20 @@
     },
     "keywords": [],
     "author": "",
-    "license": "ISC",
     "dependencies": {
-        "bcrypt": "^5.1.0",
-        "connect-session-sequelize": "^7.1.6",
-        "dotenv": "^10.0.0",
-        "express": "^4.17.1",
-        "express-handlebars": "^5.3.5",
-        "express-session": "^1.17.3",
-        "layout": "^2.2.0",
-        "mysql2": "^3.3.1",
-        "path": "^0.12.7",
-        "sequelize": "^6.31.1",
-        "node": "20.2.0"
-    },
-    "devDependencies": {
-        "eslint": "^7.32.0",
-        "eslint-config-prettier": "^8.3.0",
-        "prettier": "^2.3.2"
-    }
+      "bcrypt": "^5.1.0",
+      "connect-session-sequelize": "^7.1.6",
+      "dotenv": "^10.0.0",
+      "express": "^4.17.1",
+      "express-handlebars": "^5.3.5",
+      "express-session": "^1.17.3",
+      "howler": "^2.2.3",
+      "mysql2": "^2.3.0",
+      "sequelize": "^6.31.1"
+  },
+  "devDependencies": {
+      "eslint": "^7.32.0",
+      "eslint-config-prettier": "^8.3.0",
+      "prettier": "^2.3.2"
+  }
 }
