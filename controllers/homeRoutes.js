@@ -1,45 +1,48 @@
 // Import the Router function from the Express package
 const router = require('express').Router();
 // Import the User model from the models directory
-const {User}= require('../models');
-//Import the withAuth middleware from the utils directory
+const { User } = require('../models');
+// Import the withAuth middleware from the utils directory
 const withAuth = require('../utils/auth');
 // Import the bcrypt module for password hashing
 const bcrypt = require('bcrypt');
 
 // Define a GET route for the root path '/'
 router.get('/', withAuth, (req, res) => {
+  // Render the dashboard template when the user is authenticated
   res.render('dashboard', {
     title: 'Dashboard',
     logged_in: req.session.logged_in
   });
 });
 
-
-// Define route for /dashboard path
+// Define a GET route for the '/dashboard' path
 router.get('/dashboard', withAuth, (req, res) => {
+  // Get the username from the session
   const username = req.session.username;
+  // Render the dashboard template with the username and authentication status
   res.render('dashboard', {
     title: 'Dashboard',
     logged_in: req.session.logged_in,
-    username : username
+    username: username
   });
 });
 
-//Get route for login path
+// Define a GET route for the '/login' path
 router.get('/login', (req, res) => {
+  // If the user is already logged in, redirect to the dashboard
   if (req.session.logged_in) {
-    //if the session exists user will be directed to dashboard
     res.redirect('/');
     return;
   }
+  // Render the login form
   res.render('partials/login', { title: 'Login' });
 });
 
-//Get route for signup path
+// Define a GET route for the '/signup' path
 router.get('/signup', (req, res) => {
+  // Render the login form with no errors
   res.render('partials/login', {
-     // Render the login form with no errors
     errors: null
   });
 });
@@ -47,92 +50,107 @@ router.get('/signup', (req, res) => {
 // Define a POST route for the '/signup' path
 router.post('/signup', async (req, res) => {
   // Extract name, email, and password from the request body
-  const {name, email, password } = req.body;
+  const { name, email, password } = req.body;
   // Define an empty array to store any errors
-  const errors=[];
+  const errors = [];
   try {
     // If any field is missing, push an error message to the array
     if (!name || !email || !password) {
-      errors.push("Please enter all fields")
-       // Render the login form with the errors
-      res.render('partials/login', { errors });
+      errors.push("Please enter all fields");
+      // Render the login form with the errors
+      res.render('partials/login', { errors: errors });
       return;
     }
 
     // Check if user with the same email already exists
-    const existingUser = await User.findOne({where: {email}});
+    const existingUser = await User.findOne({ where: { email } });
 
     if (existingUser) {
-      errors.push("User already exists")
-      res.render('partials/login', { errors });
+      errors.push("User already exists");
+      // Render the login form with the errors
+      res.render('partials/login', { errors: errors });
       return;
     }
 
     // Create a new user with the given data
-    const newUser = await User.create({name, email, password});
+    const newUser = await User.create({ name, email, password });
 
+    // Set the session variables for authentication
+    req.session.logged_in = true;
+    req.session.user_id = newUser.id;
+    req.session.username = newUser.name;
+
+    // Redirect to the dashboard
     res.render('dashboard', {
       title: 'Dashboard',
       logged_in: true
     });
-    
+
   } catch (error) {
     // Show the error message on the login page
     const errors = error.errors.map(err => err.message);
     res.render('partials/login', {
-      errors
+      errors: errors
     });
   }
 });
 
-//POST route for login path if user, password are invalid then they are directed to login page 
+// Define a POST route for the '/login' path
 router.post('/login', async (req, res) => {
-  const {email, password } = req.body;
-  const user = await User.findOne({where: {email}});
+  const { email, password } = req.body;
+  // Find the user with the provided email
+  const user = await User.findOne({ where: { email } });
   if (!user) {
+    // Render the login form with an error message if the user does not exist
     res.render('partials/login', {
-      error: 'User credentials are incorrect'
+      errors: [{ message: 'User credentials are incorrect' }]
     });
     return;
   }
+  // Compare the provided password with the hashed password stored in the database
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
+    // Render the login form with an error message if the password is incorrect
     res.render('partials/login', {
-      error: 'User credentials are incorrect'
+      errors: [{ message: 'User credentials are incorrect' }]
     });
     return;
   }
-  //once the user login, session starts, user is authenticated
+
+  // Set the session variables for authentication
   req.session.logged_in = true;
-  //The id of the authenticated user in the database is stored in the user_id session variable so that it can be used to identify the user for subsequent requests.
   req.session.user_id = user.id;
   req.session.username = user.name;
 
+  // Redirect to the dashboard
   res.redirect('/dashboard');
 });
 
-//GET Route for logout path
+// Define a GET route for the '/logout' path
 router.get('/logout', (req, res) => {
-  //setting false value will destroy users session and log out from the site
-  req.session.logged_in = false;
-  res.redirect('/login');
+  // Destroy the session and redirect to the login page
+  req.session.destroy(() => {
+    res.redirect('/login');
+  });
 });
 
-// Define route for about navigation
+// Define a GET route for the '/about' path
 router.get('/about', withAuth, (req, res) => {
+  // Render the about template when the user is authenticated
   res.render('about', {
     title: 'About',
     logged_in: req.session.logged_in
   });
 });
 
-// Define route for about navigation
+// Define a GET route for the '/savedPlaylist' path
 router.get('/savedPlaylist', withAuth, (req, res) => {
+  // Render the savedPlaylist template when the user is authenticated
   res.render('savedPlaylist', {
     title: 'Saved Playlist',
     logged_in: req.session.logged_in
   });
 });
 
-
+// Export the router object to be used by other modules
 module.exports = router;
