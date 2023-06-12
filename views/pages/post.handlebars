@@ -33,3 +33,13 @@
     <button type="submit">Submit Comment</button>
   </form>
 {{/if}}
+
+<!-- Delete Post Button -->
+{{#if isLoggedIn}}
+  <button id="delete-post-btn">Delete Post</button>
+{{/if}}
+
+<!-- Include the deletePost.js file -->
+<script src="/js/deletePost.js"></script>
+<!-- Include the addComment.js file -->
+<script src="/js/addComment.js"></script>
