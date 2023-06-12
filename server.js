@@ -43,6 +43,16 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
+// Define a route handler for "/login"
+app.get('/login', (req, res) => {
+  res.render('loginForm'); 
+});
+
+// Define a route handler for "/signup"
+app.get('/signup', (req, res) => {
+  res.render('signupForm'); 
+});
+
 
 // Set up static file serving and body parsing
 app.use(express.json());

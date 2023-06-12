@@ -1,18 +1,14 @@
 const router = require('express').Router();
 
 // Import the necessary controllers
-const {
-  getDashboard,
-  getNewPostForm,
-  createNewPost,
-  getEditPostForm,
-  updatePost,
-  deletePost
-} = require('../controllers/dashboardController');
+const dashboardController = require('../controllers/dashboardController');
+
+// Destructure the required function
+const { dashboard, getNewPostForm, createNewPost, getEditPostForm, updatePost, deletePost } = dashboardController;
 
 // Define the routes
 router.get('/', (req, res) => {
-  getDashboard(req, res);
+  dashboard(req, res);
 });
 
 router.get('/new', (req, res) => {

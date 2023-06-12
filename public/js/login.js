@@ -6,8 +6,8 @@ const loginFormHandler = async (event) => {
   event.preventDefault();
 
   // Collecting the form input values
-  const email = document.querySelector('#email-input').value.trim();
-  const password = document.querySelector('#password-input').value.trim();
+  const email = document.querySelector('#email').value.trim();
+  const password = document.querySelector('#password').value.trim();
 
   if (email && password) {
     // Sending a POST request to the login route

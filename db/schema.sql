@@ -4,6 +4,11 @@ CREATE DATABASE IF NOT EXISTS tech_blog_db;
 -- Use the tech_blog_db database
 USE tech_blog_db;
 
+-- Drop the tables if they exist (to start fresh)
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS users;
+
 -- Create the users table
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -22,7 +27,7 @@ CREATE TABLE posts (
   user_id INT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users (id)
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 -- Create the comments table
