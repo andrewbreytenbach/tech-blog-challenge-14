@@ -1,5 +1,5 @@
 // Import the necessary dependencies
-const { User, Post, Comment } = require('./models'); // Adjust the path to your models
+const { User, Post, Comment } = require('../models'); // Adjust the path to your models
 
 // Define the sample data
 const userData = [
