@@ -1,26 +1,13 @@
-{{!-- //This layout holds the UI design for navigation bar of dashboard --}}
+{{!-- views/partials/navbar.handlebars --}}
 
-<div class="hero">
-    <nav>
-        <img src="/images/musiclogo.jfif" class="logo">
-        <h1 class="music">Random Music Generator</h1>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-        </ul>
-        <img src="/images/sample profile pic.jpg" class="user-pic" onclick="togglefunction()">
-        <div class="sub-menu-wrap" id="sub-menu">
-            <div class="sub-menu">
-                <div class="user-info">
-                    <img src="/images/sample profile pic.jpg">
-                    {{ username }}
-                </div>
-                <hr>
-                <a href="/logout" class="sub-menu-link">
-                    <p>Logout</p>
-                    <span>></span>
-                </a>
-            </div>
-        </div>
-    </nav>
-</div>
+<nav>
+  <ul>
+    <li><a href="/">Homepage</a></li>
+    <li><a href="/dashboard">Dashboard</a></li>
+    {{#if isLoggedIn}}
+      <li><a href="/logout">Logout</a></li>
+    {{else}}
+      <li><a href="/login">Login</a></li>
+    {{/if}}
+  </ul>
+</nav>

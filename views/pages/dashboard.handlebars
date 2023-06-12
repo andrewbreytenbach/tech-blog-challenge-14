@@ -1,0 +1,26 @@
+{{!-- views/pages/dashboard.handlebars --}}
+
+{{!-- Dashboard --}}
+<h1>Dashboard</h1>
+
+{{!-- Display user-created blog posts --}}
+{{#if posts}}
+  <h2>Your Blog Posts</h2>
+  <ul>
+    {{#each posts}}
+      <li>
+        <h3>{{title}}</h3>
+        <p>{{content}}</p>
+        <p>Posted on: {{createdAt}}</p>
+        <a href="/posts/{{id}}">View</a>
+        <a href="/posts/{{id}}/edit">Edit</a>
+        <a href="/posts/{{id}}/delete">Delete</a>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>No blog posts found.</p>
+{{/if}}
+
+{{!-- Add new blog post option --}}
+<a href="/posts/new">Add New Blog Post</a>
