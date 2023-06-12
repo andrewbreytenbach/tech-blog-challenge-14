@@ -1,9 +1,15 @@
-//Importing Model and datatypes
+// Importing Model and datatypes
 const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
 // Define the User model fields and configuration
+class User extends Model {
+  static associate(models) {
+    // Define associations here
+  }
+}
+
 User.init(
   {
     // Define the id field as an integer primary key that auto-increments
