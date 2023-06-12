@@ -3,11 +3,11 @@ const { Model, DataTypes } = require('sequelize');
 // Import the connection instance
 const sequelize = require('../config/connection');
 
-// Create the Post model by extending the Sequelize Model class
-class Post extends Model {}
+// Create the Comment model by extending the Sequelize Model class
+class Comment extends Model {}
 
-// Define the Post model fields and configuration
-Post.init(
+// Define the Comment model fields and configuration
+Comment.init(
   {
     // Define the id field as an integer primary key that auto-increments
     id: {
@@ -16,14 +16,9 @@ Post.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    // Define the title field as a string
-    title: {
+    // Define the commentText field as a string
+    commentText: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    // Define the content field as a text
-    content: {
-      type: DataTypes.TEXT,
       allowNull: false,
     },
     // Define the userId field as an integer and set it as a foreign key referencing the User model
@@ -35,12 +30,21 @@ Post.init(
         key: 'id',
       },
     },
+    // Define the postId field as an integer and set it as a foreign key referencing the Post model
+    postId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'post',
+        key: 'id',
+      },
+    },
   },
   {
     // Configure the model to use the sequelize connection instance
     sequelize,
     // Set the model name
-    modelName: 'post',
+    modelName: 'comment',
     // Automatically add timestamp fields (createdAt, updatedAt)
     timestamps: true,
     // Use underscores instead of camel-casing for automatically added fields
@@ -50,5 +54,5 @@ Post.init(
   }
 );
 
-// Export the Post model
-module.exports = Post;
+// Export the Comment model
+module.exports = Comment;
