@@ -1,0 +1,15 @@
+{{> layouts/mainLayout}}
+
+<article class="blog-post">
+  <h2>{{title}}</h2>
+  <p class="post-content">{{content}}</p>
+  <p class="post-meta">Posted by {{author}} on {{formatDate created_at}}</p>
+</article>
+
+{{#if isAuthenticated}}
+  <form class="comment-form" action="/blog/{{id}}/comment" method="POST">
+    <label for="comment">Leave a comment:</label>
+    <textarea id="comment" name="comment" required></textarea>
+    <button type="submit">Submit</button>
+  </form>
+{{/if}}

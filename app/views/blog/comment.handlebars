@@ -1,0 +1,9 @@
+{{> layouts/mainLayout}}
+
+<h2>Comments</h2>
+{{#each comments}}
+  <div class="comment">
+    <p>{{comment}}</p>
+    <p>Posted by {{username}} on {{formatDate createdAt}}</p>
+  </div>
+{{/each}}

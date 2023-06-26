@@ -1,70 +1,51 @@
-const path = require('path');
+// Required dependencies
 const express = require('express');
-const session = require('express-session');
 const exphbs = require('express-handlebars');
-const routes = require('./routes');
+const path = require('path');
 
-
-const sequelize = require('./config/connection');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
-
+// Initialize the Express app
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3005;
 
-// Serve static files from the public directory
-app.use(express.static('public'));
-
-const sess = {
-  secret: 'Super secret secret',
-  cookie: {
-    maxAge: 300000,
-    httpOnly: true,
-    secure: false,
-    sameSite: 'strict',
-  },
-  resave: false,
-  saveUninitialized: true,
-  store: new SequelizeStore({
-    db: sequelize
+// Set up Handlebars as the view engine
+app.engine(
+  'handlebars',
+  exphbs({
+    defaultLayout: 'mainLayout',
+    extname: '.handlebars',
+    layoutsDir: path.join(__dirname, 'app/views/layouts'),
+    partialsDir: path.join(__dirname, 'app/views/partials')
   })
-};
+);
 
-
-// Set up session middleware
-app.use(session(sess));
-
-// Inform Express.js on which template engine to use
-// Set the view engine
-app.engine('handlebars', exphbs({
-  defaultLayout: 'main',
-  layoutsDir: path.join(__dirname, 'views/layouts'),
-  partialsDir: path.join(__dirname, 'views/partials'),
-  extname: 'handlebars',
-}));
 app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'app/views'));
 
-// Define a route handler for "/login"
-app.get('/login', (req, res) => {
-  res.render('loginForm'); 
-});
-
-// Define a route handler for "/signup"
-app.get('/signup', (req, res) => {
-  res.render('signupForm'); 
-});
-
-
-// Set up static file serving and body parsing
-app.use(express.json());
+// Middleware
+// Parse URL-encoded form data
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
 
-// Set up routes
-app.use(routes);
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'app/public')));
+
+// Routes
+// Import and mount routes for authentication-related functionality
+const authenticationRoutes = require('./app/routes/authenticationRoutes');
+app.use('/auth', authenticationRoutes);
+
+// Import and mount routes for blog-related functionality
+const blogRoutes = require('./app/routes/blogRoutes');
+app.use('/blog', blogRoutes);
+
+// Import and mount routes for dashboard-related functionality
+const dashboardRoutes = require('./app/routes/dashboardRoutes');
+app.use('/dashboard', dashboardRoutes);
+
+// Import and mount routes for the homepage
+const homeRoutes = require('./app/routes/homeRoutes');
+app.use('/', homeRoutes);
 
 // Start the server
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server listening on PORT ${PORT}`);
-  });
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
