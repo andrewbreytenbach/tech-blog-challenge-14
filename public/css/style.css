@@ -1,18 +1,18 @@
 /* /public/css/style.css */
 body {
-  background-color: darkgray;
-  color: #333;
+  background-color: rgb(243, 243, 219);
+  color: #022912;
   font-family: Arial, sans-serif;
 }
 
 h1 {
-  color: #fff;
-  background-color: darkgray;
+  color: #022912;
+  background-color: rgb(243, 243, 219);
   padding: 20px;
 }
 
 h2 {
-  color: cream;
+  color: #022912;
 }
 
 ul {
@@ -27,10 +27,10 @@ li {
 }
 
 a {
-  color: cream;
+  color: #022912;
   text-decoration: none;
 }
 
 a:hover {
-  color: #333;
+  color: #022912;
 }
