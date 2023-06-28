@@ -11,6 +11,10 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
+
 // Serve static files from the public directory
 app.use(express.static('public'));
 
@@ -51,6 +55,42 @@ app.get('/login', (req, res) => {
 // Define a route handler for "/signup"
 app.get('/signup', (req, res) => {
   res.render('signupForm'); 
+});
+
+app.post('/signup', (req, res) => {
+  // Retrieve user data from the request body
+  const { email, password } = req.body;
+
+  // Perform necessary operations to create a new user
+  // ...
+
+  // Example authentication logic
+  const authenticated = true; // Replace this with your actual authentication logic
+
+  // Example response based on authentication result
+  if (authenticated) {
+    res.redirect('/dashboard'); // Redirect to the dashboard page on successful signup
+  } else {
+    res.status(401).send('Failed to sign up. Please try again.'); // Return an error message on signup failure
+  }
+});
+
+app.post('/login', (req, res) => {
+  // Retrieve the email and password from the request body
+  const { email, password } = req.body;
+
+  // Perform authentication logic
+  // ...
+
+  // Example authentication logic
+  const authenticated = true; // Replace this with your actual authentication logic
+
+  // Example response based on authentication result
+  if (authenticated) {
+    res.redirect('/dashboard'); // Redirect to the dashboard page on successful login
+  } else {
+    res.status(401).send('Invalid email or password'); // Return an error message on login failure
+  }
 });
 
 
