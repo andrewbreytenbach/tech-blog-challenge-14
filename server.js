@@ -7,6 +7,9 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3005;
 
+// Clear the cache for the mainLayout.handlebars file
+delete require.cache[require.resolve('./app/views/layouts/mainLayout.handlebars')];
+
 // Set up Handlebars as the view engine
 app.engine(
   'handlebars',
