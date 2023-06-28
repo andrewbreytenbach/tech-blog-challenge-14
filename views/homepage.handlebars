@@ -1,0 +1,31 @@
+{{!-- views/pages/homepage.handlebars --}}
+<link rel="stylesheet" href="/public/css/style.css">
+{{!-- Homepage --}}
+<h1>Welcome to the Blog Site</h1>
+
+{{!-- Display existing blog posts --}}
+{{#if posts}}
+  <h2>Latest Blog Posts</h2>
+  <ul>
+    {{#each posts}}
+      <li>
+        <h3>{{title}}</h3>
+        <p>{{content}}</p>
+        <p>Author: {{author}}</p>
+        <p>Posted on: {{createdAt}}</p>
+        <a href="/posts/{{id}}">Read More</a>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>No blog posts found.</p>
+{{/if}}
+
+{{!-- Login and Sign-up options --}}
+{{#unless isLoggedIn}}
+  <div>
+    <a href="/login">Login</a>
+    <span> | </span>
+    <a href="/signup">Sign up</a>
+  </div>
+{{/unless}}

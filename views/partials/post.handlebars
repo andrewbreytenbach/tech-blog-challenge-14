@@ -1,0 +1,45 @@
+{{!-- views/pages/post.handlebars --}}
+
+{{!-- Individual Blog Post --}}
+<h1>{{title}}</h1>
+<p>{{content}}</p>
+<p>Author: {{author}}</p>
+<p>Posted on: {{createdAt}}</p>
+
+{{!-- Display comments --}}
+{{#if comments}}
+  <h2>Comments</h2>
+  <ul>
+    {{#each comments}}
+      <li>
+        <p>{{commentText}}</p>
+        <p>Commented by: {{commenter}}</p>
+        <p>Posted on: {{createdAt}}</p>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>No comments found.</p>
+{{/if}}
+
+{{!-- Add comment option --}}
+{{#if isLoggedIn}}
+  <h2>Add Comment</h2>
+  <form id="comment-form" action="/posts/{{postId}}/comments" method="POST">
+    <div class="form-group">
+      <label for="commentText">Comment:</label>
+      <textarea id="commentText" name="commentText" required></textarea>
+    </div>
+    <button type="submit">Submit Comment</button>
+  </form>
+{{/if}}
+
+<!-- Delete Post Button -->
+{{#if isLoggedIn}}
+  <button id="delete-post-btn">Delete Post</button>
+{{/if}}
+
+<!-- Include the deletePost.js file -->
+<script src="/js/deletePost.js"></script>
+<!-- Include the addComment.js file -->
+<script src="/js/addComment.js"></script>

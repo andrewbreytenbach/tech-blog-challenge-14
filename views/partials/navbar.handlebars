@@ -1,0 +1,13 @@
+{{!-- views/partials/navbar.handlebars --}}
+
+<nav>
+  <ul>
+    <li><a href="/">Homepage</a></li>
+    <li><a href="/dashboard">Dashboard</a></li>
+    {{#if isLoggedIn}}
+      <li><a href="/logout">Logout</a></li>
+    {{else}}
+      <li><a href="/login">Login</a></li>
+    {{/if}}
+  </ul>
+</nav>
