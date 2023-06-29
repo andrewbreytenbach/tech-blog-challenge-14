@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="signup-wrapper">
+    <h1 class="signup-title">Signup</h1>
+    <form class="signup-form">
+      <div class="form-group">
+        <label for="name-signup" class="form-label">Name:</label>
+        <input class="form-input" placeholder="Enter Name" type="text" id="name-signup" />
+      </div>
+      <div class="form-group">
+        <label for="email-signup" class="form-label">Email:</label>
+        <input class="form-input" placeholder="Enter Email" type="email" id="email-signup" />
+      </div>
+      <div class="form-group">
+        <label for="password-signup" class="form-label">Password:</label>
+        <input class="form-input" placeholder="Enter Password" type="password" id="password-signup" />
+      </div>
+      <div class="form-group">
+        <button class="signup-button" type="submit">Signup</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="./js/signup.js"></script>
+<script>
+  // Selecting the signup form element
+const signupForm = document.querySelector('.signup-form');
+
+// Function to handle the signup form submission
+const signupFormHandler = async (event) => {
+  event.preventDefault();
+
+  // Collecting the form input values
+  const name = document.querySelector('#name-signup').value.trim();
+  const email = document.querySelector('#email-signup').value.trim();
+  const password = document.querySelector('#password-signup').value.trim();
+
+  if (password.length < 8) {
+    alert("Password must be at least 8 characters long!");
+    return;
+  }
+
+  if (name && email && password) {
+    // Sending a POST request to the signup route
+    const response = await fetch('/api/users/signup', {
+      method: 'POST',
+      body: JSON.stringify({ name, email, password }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.ok) {
+      // If the signup is successful, redirect the user to the login page
+      document.location.replace('/login');
+    } else {
+      // If the signup fails, display an error message
+      const errorMessage = await response.text();
+      alert(errorMessage);
+    }
+  }
+};
+
+// Adding an event listener to the signup form
+if (signupForm) {
+  signupForm.addEventListener('submit', signupFormHandler);
+}
+</script>
