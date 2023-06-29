@@ -5,18 +5,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{title}}</title>
+  <title>Tech Blog</title>
   <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
-  {{> navbar}}
-
-  <main>
-    {{{body}}}
-  </main>
-
-  <footer>
+  <div class="">
+    <header class="">
+      <h1>
+        <a class="" href="/">Tech Blog</a>
+      </h1>
+      <nav>
+        <!-- Conditionally render login or logout links -->
+        {{#if logged_in}}
+        <a class="" href="/api/posts">Homepage</a> |
+        <a class="" href="/post">Dashboard</a> |
+        <button class="" id="logout">Logout</button>
+        {{else}}
+        <a class="" href="/login">Login</a> |
+        <a class="" href="/signup">Signup</a> |
+        {{/if}}
+      </nav>
+    </header>
+    <main class="">
+      <!-- Render the sub layout -->
+      {{{ body }}}
+    </main>
+    <footer>
     <p>© 2023 Tech Blog. All rights reserved.</p>
   </footer>
+  </div>
+
+  <!-- Render script for logged in users only -->
+  {{#if logged_in}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
 </body>
 </html>

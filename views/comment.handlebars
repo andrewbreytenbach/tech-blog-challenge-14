@@ -1,0 +1,89 @@
+<div id="post-details-template">
+  <h2 class="new-title">{{logged_user_name}}</h2>
+  <div class="new-subtitle">Find Post details below!</div>
+  <div class="new-header">
+    <h2>{{title}}</h2>
+  </div>
+  <hr>
+  <div class="new-content">
+    <p class="new-description">{{description}}</p>
+    <p class="new-created">Created by {{user.name}} on {{format_date createdAt}}</p>
+    <div class="new-divider"></div>
+    <div class="new-comment-section">
+      <div class="new-comment-container">
+        <h1 class="new-comment-heading"><i class="new-user-icon"></i> Enter Comment</h1>
+        <form class="new-comment-form">
+          <input type="hidden" class="new-postId" value="{{id}}">
+          <input type="hidden" class="new-userId" value="{{logged_user_id}}">
+          <div class="new-comment-description">
+            <label for="comment-description" class="new-label">Description:</label>
+            <textarea class="new-textarea" id="comment-description" name="comment-description"></textarea>
+          </div>
+          <div class="new-submit-section">
+            <button type="submit" class="new-submit-button">Submit Comment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/comment.js"></script>
+<script>
+  // Compile the Handlebars template
+  const postDetailsTemplate = Handlebars.compile(document.getElementById('post-details-template').innerHTML);
+
+  // Render the template with data
+  const postDetailsData = {
+    logged_user_name: "John Doe",
+    title: "Post Title",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    user: {
+      name: "Jane Smith"
+    },
+    createdAt: "2023-06-29"
+    // Additional data properties can be added as needed
+  };
+  const renderedPostDetails = postDetailsTemplate(postDetailsData);
+
+  // Append the rendered template to a container element on the page
+  const postDetailsContainer = document.getElementById('post-details-container');
+  postDetailsContainer.innerHTML = renderedPostDetails;
+
+  // Function to handle the submit event for the comment form
+  const handleCommentSubmit = async (event) => {
+    event.preventDefault();
+
+    // Get the comment text from the form
+    const description = document.querySelector('#comment-description').value.trim();
+
+    // Get the postId from the form (assuming there is an input field with class 'new-postId')
+    const post_id = document.querySelector('.new-postId').value.trim();
+
+    // Get the user ID from the form (assuming there is an input field with class 'new-userId')
+    const created_by = document.querySelector('.new-userId').value.trim();
+
+    if (description && post_id && created_by) {
+      // Send a POST request to add the comment
+      const response = await fetch('/api/comments/', {
+        method: 'POST',
+        body: JSON.stringify({ description, created_by, post_id }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (response.ok) {
+        // If the comment is added successfully, redirect to the specific post
+        document.location.replace('/api/posts/' + post_id);
+      } else {
+        // If there is an error, display the error message
+        const errorMessage = await response.statusText;
+        alert(errorMessage);
+      }
+    }
+  };
+
+  // Add event listener to the comment form submit button
+  const commentForm = document.querySelector('.new-comment-form');
+  if (commentForm) {
+    commentForm.addEventListener('submit', handleCommentSubmit);
+  }
+</script>

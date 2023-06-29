@@ -1,68 +1,4 @@
-<div class="row">
-  <div class="column">
-    <h2 class="title">Welcome {{name}}!</h2>
-  </div>
-</div>
-<div class="spacing">
-  <button class="button" id="btnShowCreatePost">Create a new post</button>
-</div>
-
-<div id="divCreatePost" class="hidden">
-  <div class="container content-box shadow-box rounded-box">
-    <h1 class="title">Create a New Post</h1>
-
-    <form class="form new-post-form">
-      <div class="form-group spacing">
-        <label for="post-title" class="label">Title:</label>
-        <input class="input" type="text" id="post-title" name="post-title" />
-      </div>
-      <div class="form-group spacing">
-        <label for="post-description" class="label">Description:</label>
-        <textarea class="input" id="post-description" name="post-description"></textarea>
-      </div>
-      <div class="form-group spacing">
-        <button class="button" type="submit">Create Post</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-{{#if posts.length}}
-<div>
-  <div class="title">My Posts</div>
-  {{#each posts as |post|}}
-  <div class="post">
-    <div class="post-title">
-      <a class="post-link" href="/api/posts/{{post.id}}">{{post.title}}</a>
-    </div>
-    <hr>
-    <div class="post-content">
-      <p>{{post.description}}</p>
-    </div>
-    <div class="post-date">
-      <p>Created on {{format_date post.createdAt}}</p>
-    </div>
-    <div id="divEdit{{post.id}}" class="hidden">
-      <label for="editdescription{{post.id}}" class="label">Description:</label>
-      <textarea class="input" id="editdescription{{post.id}}" name="editdescription{{post.id}}">{{post.description}}</textarea>
-      <div class="spacing">
-        <button class="button update-post" data-id="{{post.id}}" onclick="updateButtonHandler(this);">Save changes</button>
-      </div>
-    </div>
-    <div class="spacing">
-      <button class="button edit-post" data-id="{{post.id}}" onclick="editButtonHandler(this);">Edit</button>
-    </div>
-    <div class="spacing">
-      <button class="button delete-post" data-id="{{post.id}}">Delete</button>
-    </div>
-  </div>
-  {{/each}}
-</div>
-{{/if}}
-
-<script src="../js/post.js"></script>
-<script>
-  // Function to handle the new post form submission
+// Function to handle the new post form submission
 const handleAddPost = async (event) => {
   event.preventDefault();
 
@@ -185,4 +121,3 @@ try {
 } catch (error) {
   console.error('Error:', error);
 }
-</script>
