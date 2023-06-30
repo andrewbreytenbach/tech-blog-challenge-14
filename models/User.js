@@ -19,11 +19,7 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    // Define the username field as a string
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+    
     // Define the email field as a string and validate it as an email address
     email: {
       type: DataTypes.STRING,
