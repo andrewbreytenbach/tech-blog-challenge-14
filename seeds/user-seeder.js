@@ -4,12 +4,10 @@ const { User } = require('../models');
 // Array of user data to be seeded into the database
 const userData = [
   {
-    username: 'john_doe',
     email: 'john@example.com',
     password: 'password123',
   },
   {
-    username: 'jane_smith',
     email: 'jane@example.com',
     password: 'password456',
   },
