@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 });
 
 // Route for user signup
-router.post('/', async (req, res) => {
+router.post('/signup', async (req, res) => {
   try {
     const userData = await User.create(req.body);
     req.session.save(() => {
@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
 });
 
 // Route for user dashboard and their posts
-router.get('/post', withAuth, async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     const user = await User.findByPk(req.session.user_id, {
       include: [
@@ -57,7 +57,7 @@ router.get('/login', (req, res) => {
 router.get('/signup', (req, res) => {
   // If the user is already logged in, redirect to another route
   if (req.session.logged_in) {
-    res.redirect('/api/posts');
+    res.redirect('/api/postRoutes');
     return;
   }
   res.render('login', {
